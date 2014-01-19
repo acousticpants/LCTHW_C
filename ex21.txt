@@ -1,0 +1,136 @@
+data types
+int: stores an integer default to 32 bits size
+double: holds large floating point number
+float: holds smaller flouting point number
+char: holds single 1 byte character
+void: means 'no type' i.e. returns nothing, or pointer without type eg: *thing
+enum: operate and conv to integers w/ symbol names for sets
+
+type modifiers
+unsigned: changes type to no neg numbers, larger upper bound, lower bound at 0
+signed: opposite of signed
+long: usually doubles current type storage limit
+short: usually half the normal storage space
+
+Type qualifiers
+const: indicates var won't change after being initialised
+volatile: i.e. 'all bets off' tells compiler not to do anyuthing to this. only for when doing really strange things
+register: forces compiler to register this variable. only use if proven to improve speed
+
+type conversion
+smaller side converted to match bigger side in order:
+long double
+double
+float
+int
+long
+
+type sizes
+int8_t: 8 bit signed integer
+uint8_t: 8 bit unsigned integer
+int16_t: 16 bit signed integer
+uint16_t: 16 big unsigned integer
+int32_t: 32 bit signed integer
+uint32_t: 32 bit unsigned integer
+int64_t: 64 bit signed integer
+uint64_t: 64 bit unsigned integer
+
+INT(N)_MAX: max +ive n of signed integer of bits (N) eg: INT16_MAX
+
+INT(N)_MIN: min -ive n of signed integer of bits (N)
+
+UINT(N)_MAX: max +ive n of unsigned int of bits (N) unsigned means min is 0 and no -ive values
+
+in stdint.h:
+
+int_least(N)_t: holds at least (N) bits
+uint_least(N)_t: holds at least (N) bits unsigned
+INT_LEAST(N)_MAX: max value of match least (N) type
+INT_LEAST(N)_MIN: min value of match least (N) type
+UINT_LEAST(N)_MAX: unsigned max of matching (N) type
+int_fast(N)_t: similar to int_least*N*_t but 
+uint_fast(N)_t: unsigned fastest least integer
+INT_FAST(N)_MAX: max value of matching fastest (N) type
+INT_FAST(N)_MIN: min value of matching fastest (N) type
+UINT_FAST(N)_MAX: unsigned max val of matching fastest (N) type
+intptr_t: signed int large enought to hold a pointer
+uintptr_t: unsigned int large enough to hold ptr
+INTPTR_MAX: max value of a intptr_t
+UINTPTR_MAX: unsigned max value of uintptr_t
+intmax_t: biggest number possible on host system
+uintmax_t: biggest unisigned possible 
+INTMAX_MAX: largest value for biggest signed number
+INTMAX_MIN: smallest val for biggest signed number
+UINTMAX_MAX: largest val for biggest unsigned num
+PTRDIFF_MIN: min value of ptrdiff_t
+PTRDIFF_MAX: max val of ptrdiff_t
+SIZE_MAX: max of a size_t
+
+Available operators
+(binary): operator has left and right: X + Y
+(unary): operator on its own: -X
+(prefix): operator before variable: ++X
+(postfix): usually equiv to prefix, but placing operator after changes meaning: X++
+(ternary): means 3 operands: X ? Y : Z
+
+math operators
+(): function call
+* multiply
+/ divide
++ (binary) addition
++ (unary) positive number
+++ (postfix) read then increment
+++ (prefix) increment then read
+-- (postfix) read then decrement
+-- (prefix) decrement then read
+-(binary) subtract
+-(unary) negative number
+
+Data operators
+-> struct pointer access
+. struct value access
+[] array index
+sizeof: size of type of var
+&(unary): address of
+*(unary): value of
+
+Lobic operators
+!= does not equal
+< less than
+> greater than
+<= less than or equal
+>= greater than or equal
+== equal( not the same as assignment)
+
+Bit operators
+&(binary): bitwise and
+<< shift left
+>> shift right
+^bitwise xor (exclusive or)
+| bitwise or
+~ compliment (flips all the bits)
+
+Boolean operators
+!: not
+&&: and
+||: and
+?: Ternary truth test, read X | Y : Z as "if X then Y else Z"
+
+Assignment operators
+=: assign
+%=: modulas assign
+&=: bitwise and assign
+*=: multiply assign
++=: plus assign
+-=: minus assign
+/=: divide assign
+<<=: shift left, assign
+>>=: shift right, assign
+^=: bitwise xor, assign
+|=: bitwise or, assign
+
+Available control structures
+do-while: do {...} while(x); first does code in block, then tests X before exit
+break: put in loop, will exit loop early if reached
+continue: sopt  body ofloop and jump to test to continue
+goto: jumps to spot in code with label:,
