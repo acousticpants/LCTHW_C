@@ -15,7 +15,8 @@ void die(const char *message)
     exit(1);
 }
 //a typedef creates a fake type, in this
-//case for a function pointer is used as type int or char in bubble_sort and //test_sorting later on
+//case for a function pointer is used as type int or char in bubble_sort and 
+//test_sorting later on
 typedef int (*compare_cb)(int a, int b);
 /* A classic bubble sort function using
 compare_cb to sort
@@ -33,11 +34,11 @@ int *bubble_sort(int *numbers, int count, compare_cb cmp)
 
     if(!target) die("Memory error.");
 
-    memcpy(*target, numbers, count * sizeof(int));
+    memcpy(target, numbers, count * sizeof(int));
 
     for(i = 0; i < count; i++) { //outer loop of sort
         for(j = 0; j < count - 1; j++) { //inner loop of sort
-            if(cmp(target[j], target[j+1]) > 0) { 
+            if(cmp(target[j], target[j+1]) > 0) {
 //cmp pointer to compare_cb, can pas variables to it like normal function
 //standard comparison sort routine
                 temp = target[j+1];
@@ -50,17 +51,15 @@ int *bubble_sort(int *numbers, int count, compare_cb cmp)
     return target;
 }
 //functions operating on elements a and b based on compare_cb fn type
-int sorted_order(int a, int b)
-{
+int sorted_order(int a, int b) {
     return a - b;
-}
+    }
 
-int reverse_order(int a, int b)
+int reverse_order(int a, int b) {
     return b - a;
-}
+    }
 
-int strange_order(int a, int b)
-{
+int strange_order(int a, int b) {
     if(a == 0 || b == 0) {
         return 0;
     } else {
@@ -84,12 +83,19 @@ void test_sorting(int *numbers, int count, compare_cb cmp)
         printf("%d ", sorted[i]);
     }
     printf("\n");
-
+    
+    unsigned char *data = (unsigned char *)cmp;
+    for(i = 0; i < 25; i++) {
+        printf("%02x:", data[i]);
+    }
+    printf("\n");
     free(sorted);
 }
-//main sets array of int from input @ cmdline
-//inputs takes array cmdline char, conv to int w/ atoi goes to new array 'numbers'
-//test_sorting operates on this arrar of inputs
+/*main sets array of int from input @ cmdline
+*inputs takes array cmdline char, conv to int w/ atoi goes to new array 
+*'numbers'
+*test_sorting operates on this arrar of inputs
+*/
 int main(int argc, char *argv[])
 {
     if(argc < 2) die("USAGE: ex18 4 3 1 5 6");
@@ -104,12 +110,13 @@ int main(int argc, char *argv[])
     for(i = 0; i < count; i++) {
         numbers[i] = atoi(inputs[i]);
     }
-    
+    printf("\n");
+    printf("Your list has been sorted:\n");
     test_sorting(numbers, count, sorted_order);
-    test_sorting(numbers, count, revers_order);
+    test_sorting(numbers, count, reverse_order);
     test_sorting(numbers, count, strange_order);
 
-    free(numbers); //note data free() from test_sorting def as well as this free()
+    free(numbers);//note data free() from test_sorting def as well as this free()
 
     return 0;
 }
