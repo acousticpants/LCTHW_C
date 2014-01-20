@@ -132,7 +132,7 @@ Assignment operators
 Available control structures
 do-while: do {...} while(x); first does code in block, then tests X before exit
 break: put in loop, will exit loop early if reached
-continue: sopt  body ofloop and jump to test to continue
+continue: stop  body ofloop and jump to test to continue
 goto: jumps to spot in code with label:,
 
 command line 
@@ -158,3 +158,20 @@ echo: print some args
 export; export/set new env variable
 exit: exit shell
 sudo: DANGER! become super user root DANGER!
+
+/* VARIOUS I/O FUNCTIONS
+fscanf
+fgets
+fopen
+freopen
+fdopen
+fclose
+fcloseall
+fgetpos
+fseek
+ftell
+rewind
+fprintf
+fwrite
+fread
+*/
