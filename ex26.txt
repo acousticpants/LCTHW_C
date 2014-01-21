@@ -1,0 +1,83 @@
+creative at the beginning: (creative programming)
+    there are no mistakes
+    no matter what people think
+    whatever i think of is going to be a great idea no matter what it is
+
+once you have a prototype: (defensive programming)
+    software is full of errors
+    you're not your software, but you're responsible for your errors
+    you can never remove the errors, only reduce their probability
+
+strategies to improve a prototype:
+
+    never trust input always validate it
+    prevent errors, even unlikely ones
+    fail early and obviously, document fixes
+    document assumptions - pre and post conditions, invariants
+    prevention over documentation
+    automate everything esp. testing
+    simplify and clean your code
+    question authority, break conventions
+
+never write infinite loops
+
+ex27 ensures copy loop can't go on forever because it checks correct length and '\0' terminator
+
+"nobody's going to do that" are famous last words
+
+to protect your code:
+    id preconditions for parameters and if they cause error or failure
+    assert calls to check each precondition eg assert(test && "message")
+    for other preconditions return error code or use Zed's "check" macro
+    document why the preconditions exist
+    if modifying inputs, ensure correctness b4 function exits, or abort if not
+    check error codes of functions
+    need to be returning consistent error codes to apply across all functions
+
+if x is possible, treat x as probable
+
+how to determine what to prevent in code
+    list all possible errors
+    calc percentage of operations which can cause this error
+    give each one an effort metric to prevent it. hours, LOC or easy/hard
+    rank by effort and probability to create task list
+    prevent errors by remove possibility, then reduce probability
+    if unfixable, document for others
+
+fail early and openly
+    errors can either return a code or abort process
+
+    use a different error code for different errors. ie not just 'bad port'
+    
+document assumptions
+    pre/post conditions and invariants listed
+    assert calls useful here
+
+prevention beats documentation
+    fix errors rather than notate them
+
+automate everything
+    automated tests aka 'unit tests'
+    testing and validation
+    build processes
+    deployment of software
+    system administration
+    error reporting
+
+simplify and clarify
+    comprension != simplicity
+    simple and dirty beats complex and clean
+    fewer lines, branches, classes, features, time, interfaces, assets
+
+question authority/convention
+    occasionally treat things as they they are all wrong
+    defensive thought enables efficiency, destroys change/initiative/creativity
+
+order is unimportant
+    defensive and creative work are interdependent and unregulated
+
+
+
+
+    
+
