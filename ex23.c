@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "dbg.h"
-
+//for loop copyhing chars from one array to another
 int normal_copy(char *from, char *to, int count)
 {
     int i = 0;
@@ -12,7 +12,7 @@ int normal_copy(char *from, char *to, int count)
 
     return i;
 }
-
+//another copy that shouldn't work but does
 int duffs_device(char *from, char *to, int count)
 {
     {
@@ -32,7 +32,7 @@ int duffs_device(char *from, char *to, int count)
     }
     return count;
 }
-
+//zed's version of duff's without the hackery and a goto to show what duff is doing
 int zeds_device(char *from, char *to, int count)
 {
     {

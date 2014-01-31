@@ -2,7 +2,7 @@
 #include <lcthw/radixmap.h>
 #include <time.h>
 
-static int make_random(RadixMap *map)
+static int make_random(RadixMap *map)//creates random numbers, adds to RadixMap confirms add
 {
     size_t i = 0;
 
@@ -16,7 +16,7 @@ error:
     return 0;
 }
 
-static int check_order(RadixMap *map)
+static int check_order(RadixMap *map)//iterates through list and confirms each pair is in order
 {
     RMElement d1, d2;
     unsigned int i = 0;
@@ -35,7 +35,7 @@ static int check_order(RadixMap *map)
     return 1;
 }
 
-static int test_search(RadixMap *map)
+static int test_search(RadixMap *map)//finds value confirms found a key and found correct key
 {
     unsigned i = 0;
     RMElement *d = NULL;
@@ -58,24 +58,24 @@ static char *test_operations()
 {
     size_t N = 200;
 
-    RadixMap *map = RadixMap_create(N);
+    RadixMap *map = RadixMap_create(N);//create and test successful creation
     mu_assert(map != NULL, "Failed to make the map.");
     mu_assert(make_random(map), "Didn't make a random fake radix map.:);
 
-    RadixMap_sort(map);
+    RadixMap_sort(map);//sort and test successful sort
     mu_assert(check_order(map), "Failed to properly sort the RadixMap.");
 
     mu_assert(test_search(map), "Failed the search test.");
     mu_assert(test_search(map), "RadixMap didn't stay sorted after search.");
 
-    while(map->end > 0) {
+    while(map->end > 0) {//finds element in middle and test successful find
         RMElement *el = RadixMap_find(map, map->contents[map->end / 2].data.key);
         mu_assert(el != NULL, "Should get a result.");
 
         size_t old_end = map->end;
 
-        mu_assert(RadixMap_delete(map, el) == 0, "Didn't delete it.");
-        mu_assert(old_end - 1 == map->end, "Wrng size after delete.");
+        mu_assert(RadixMap_delete(map, el) == 0, "Didn't delete it.");//delete and test deletion
+        mu_assert(old_end - 1 == map->end, "Wrng size after delete.");//test size after deletion
 
         //test that the end is now the old value, but uint32 max so it trails off
         mu_assert(check_order(map), "RadixMap didn't stay sorted after delete.");

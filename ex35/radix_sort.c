@@ -1,17 +1,17 @@
 /* Based on code by Andre Reinald mod'd by Z.A. Shaw */
-
+//find source for *map 
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
 #include <lcthw/radixmap.h>
 #include <lcthw/dbg.h>
 
-RadixMap *RadixMap_create(size_t max)
+RadixMap *RadixMap_create(size_t max)//as name suggests
 {
-    RadixMap *map = calloc(sizeof(RadixMap), 1);
+    RadixMap *map = calloc(sizeof(RadixMap), 1);//RadixMap def'd in h file
     check_mem(map);
 
-    map->contents = calloc(sizeof(REMlement), max + 1);
+    map->contents = calloc(sizeof(RMElement), max + 1);//RMElement def'd in h file
     check_mem(map->contents);
 
     map->temp = calloc(sizeof(RMElement), max + 1);
@@ -65,9 +65,9 @@ static inline void radix_sort(short offset, uint64_t max, uint64_t *source, uint
     }
 }
 
-void RadixMap_sort(RadixMap *map)
+void RadixMap_sort(RadixMap *map)//the main piece
 {
-    uint64_t *source = &map->countents[0].raw;
+    uint64_t *source = &map->contents[0].raw;
     uint64_t *temp = &map->temp[0].raw;
 
     radix_sort(0, map->end, source, temp);
@@ -76,10 +76,10 @@ void RadixMap_sort(RadixMap *map)
     radix_sort(3, map->end, temp, source);
 }
 
-RMElement *RadixMap_find(RadixMap *map, uint32_t to_find)
+RMElement *RadixMap_find(RadixMap *map, uint32_t to_find)//uses a bin search for key
 {
     int low  = 0;
-    int hight = map->end - 1;
+    int high = map->end - 1;
     RMElement *data = map->contents;
 
     while (low <= high) {
@@ -98,7 +98,7 @@ RMElement *RadixMap_find(RadixMap *map, uint32_t to_find)
     return NULL;
 }
 
-int RadixMap_add(RadixMap *map, uint32_t key, uint32_t value)
+int RadixMap_add(RadixMap *map, uint32_t key, uint32_t value)//adds key and value at end, then re-sort for correct placement
 {
     check(key < UINT32_MAX, "Key can't be equal to UINT32_MAX.");
 
@@ -115,19 +115,19 @@ error:
     return -1;
 }
 
-int RadixMap_delete(RadixMap *map, RMElement *el)
+int RadixMap_delete(RadixMap *map, RMElement *el)//as name suggests
 {
     check(map->end > 0, "There is nothing to delete.");
     check(el != NULL, "Can't delete a NULL element.");
 
-    el->data.key = UINT32_MAX;
+    el->data.key = UINT32_MAX;//setting the element to MAX size means it can't be found because ln:82
 
     if(map->end > 1) {
         //don't bother resorting a map of 1 length
-        RadixMap_sort(map);
+        RadixMap_sort(map);//sort puts the resized element to end of list, as it is UINT32_MAX
     }
 
-    map->end--;
+    map->end--;//decrement length of list results in deleting element off the end. ta da.
 
     return 0;
 error:

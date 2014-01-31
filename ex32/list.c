@@ -1,7 +1,7 @@
 //see ex32 page on website to create project folder before compiling this
 #include <lcthw/list.h>
 #include <lcthw/dbg.h>
-
+//for_each macro iterates through for each functionto operate on target element
 List *List_create()
 {
     return calloc(1, sizeof(List));
@@ -32,7 +32,7 @@ void List_clear_destroy(List *list)
     List_destroy(list);
 }
 
-void List_push(List *list, void *value)
+void List_push(List *list, void *value)//add element to end of list
 {
     ListNode *node = calloc(1, sizeof(ListNode));
     check_mem(node);
@@ -54,13 +54,13 @@ error:
     return;
 }
 
-void *List_pop(List *list)
+void *List_pop(List *list)//remove element from end of list
 {
     ListNode *node = list->last;
     return node != NULL ? List_remove(list, node) : NULL;
 }
 
-void List_unshift(List *list, void *value)
+void List_unshift(List *list, void *value)//add element to front of list
 {
     ListNode *node = calloc(1, sizeof(ListNode));
     check_mem(node);
@@ -82,17 +82,17 @@ error:
     return;
 }
 
-void *List_shift(List *list)
+void *List_shift(List *list)//remove element from front of list
 {
     ListNode *node = list->first;
     return node != NULL ? List_remove(list, node) : NULL;
 }
 
-void *List_remove(List *list, ListNode *node)
+void *List_remove(List *list, ListNode *node)//all steps for list pop and shift functions
 {
     void *result = NULL;
 
-    check(list->first && list->last, "List is empty.:");
+    check(list->first && list->last, "List is empty.:");//check from dbg.h
     check(node, "node can't be NULL");
 
     if(node == list->first && node == list->last) {

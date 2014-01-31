@@ -1,3 +1,4 @@
+//stuff declared in object.h is define here in this file
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -38,7 +39,7 @@ int Object_attack(void *self, int damage)
     return 0;
 }
 
-void *Object_new(size_t size, Object proto, char *description)
+void *Object_new(size_t size, Object proto, char *description)//this function is called by macro NEW in object.h:26
 {
     //setup default func in case aren't set
     if(!proto.init) proto.init = Object_init;

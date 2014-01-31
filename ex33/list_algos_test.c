@@ -5,7 +5,7 @@
 char *values[] = {"XXXX", "1234", "abcd", "xjvef", "NDSS"};
 #define NUM_VALUES 5
 
-List *create_words()
+List *create_words()//creates list 'words' no bigger than NUM_VALUES
 {
     int i = 0;
     List *words = List_create();
@@ -17,7 +17,7 @@ List *create_words()
     return words;
 }
 
-int is_sorted(List *words)
+int is_sorted(List *words)//confirms cur->value > cur->next->value
 {
     LIST_FOREACH(words, first, next, cur) {
         if(cur->next && strcmp(cur->value, cur->next->value) > 0) {
@@ -63,7 +63,7 @@ char *test_merge_sort()
     //should work on a list needing sorting
     List *res = List_merge_sort(words, (List_compare)strcmp);
     mu_assert(is_sorted(res), "Words are not sorted after merge sort.");
-
+    //check already sorted list
     List *res2 = List_merge_sort(res, (List_compare)strcmp);
     mu_assert(is_sorted(res), "Should still be sorted after merge sort.");
     List_destroy(res2);

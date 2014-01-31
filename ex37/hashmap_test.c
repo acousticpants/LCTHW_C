@@ -4,7 +4,7 @@
 #include <lcthw/bstrlib.h>
 
 Hashmap *map = NULL;
-static int traverse_called = 0;
+static int traverse_called = 0;s
 struct tagbstring test1 = bsStatic("test data 1");
 struct tagbstring test2 = bsStatic("test data 2");
 struct tagbstring test3 = bsStatic("test data 3");

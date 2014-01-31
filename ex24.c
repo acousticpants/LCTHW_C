@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
     char *in = NULL;
 
     printf("What's your First Name? ");
-    in = fgets(you.first_name, MAX_DATA-1, stdin);
+    in = fgets(you.first_name, MAX_DATA-1, stdin);//takes str from input, ensures no buffer overflow
     check(in != NULL, "Failed to read first name,");
 
     printf("What's your Last Name? ");
@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
     check(in != NULL, "Failed to read last name.");
 
     printf("How old are you? ");
-    int rc = fscanf(stdin, "%d", &you.age);
+    int rc = fscanf(stdin, "%d", &you.age);//takes stdin and puts into you.age
     check(rc > 0, "You have to enter a number.");
 
     printf("What colour are your eyes:\n");

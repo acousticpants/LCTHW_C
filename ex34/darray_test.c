@@ -1,6 +1,6 @@
 #include "minunit.h"
 #include <lcthw/darray.h>
-
+//this file creates an array and iterates through each function outlined in header, testing returned results with minunit.h macros
 static DArray *array = NULL;
 static int *val1 = NULL;
 static int *val2 = NULL;
@@ -81,7 +81,7 @@ char *test_expand_contract()
 
     return NULL;
 }
-char *test_push_pop()
+char *test_push_pop()//loops through, adds val to end of array each time, checks it, then takes it off, then checks it again
 {
     int i = 0;
     for(i = 0; i < 1000; i++) {

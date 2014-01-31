@@ -1,10 +1,12 @@
+//data types and func defs/decs in thisfile
+//3 structs: monster, room and map
 #ifndef _ex19_h
 #define _ex19_h
 
 #include "object.h"
 
 struct Monster {
-    Object proto;
+    Object proto;//Object proto enables us to treat Monster like an Object because of object.h:26 and object.c:52
     int hit_points;
 };
 

@@ -24,7 +24,7 @@ char *test_destroy()
 
 }
 
-char *test_push_pop()
+char *test_push_pop()//takes test 1 2 3, adds to list, checks each, then removes 1 2 and 3, checking the removed data is 1 2 and 3.
 {
     List_push(list, test1);
     mu_assert(List_last(list) == test1, "Wrong last value.");
@@ -49,7 +49,7 @@ char *test_push_pop()
     return NULL;
 }
 
-char *test_unshift()
+char *test_unshift()//same as test push
 {
     List_unshift(list, test1);
     mu_assert(List_first(list) == test1, "Wrong first value.");
@@ -77,7 +77,7 @@ char *test_remove()
     return NULL;
 }
 
-char *test_shift()
+char *test_shift()//same as test pop
 {
     mu_assert(List_count(list) != 0, "Wrong count before shift.");
 
@@ -91,7 +91,7 @@ char *test_shift()
     return NULL;
 }
 
-char *all_tests() {
+char *all_tests() {//does everything like a boss
     mu_suite_start();
 
     mu_run_test(test_create);

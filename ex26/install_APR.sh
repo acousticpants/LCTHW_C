@@ -1,5 +1,6 @@
 #shell script file to install Apache Portable Runtime (APR)
-
+#apache portable runtime is a portability library. runs on many platforms, including win, mac and linux. grabs code online or local, then does usual configure, make, make install
+#this file will basically do devpkg but with fewer commands
 set -e
 
 #go somewhere safe
@@ -39,3 +40,5 @@ sudo make install
 #cleanup
 cd /tmp
 rm -rf apr-util-1.4.1* apr-1.4.6*
+
+#lots of files for this one, make all, do all challenges, creates a binary debpkg at the end

@@ -6,7 +6,7 @@ char *lib_file = "build/libYOUR_LIBRARY.so";
 void *lib = NULL;
 
 int check_function(const char *func_to_run, const char *data, int expected)
-{
+{//check_function run under mu_assert from minunit.h
     lib_function func = dlsym(lib, func_to_run);
     check(func != NULL, "Did not find %s function in the library %s: %s", func_to_run, lib_file, dlerror());
 
@@ -18,7 +18,7 @@ error:
     return 0;
 }
 
-char *test_dlopen()
+char *test_dlopen()//tests r structured for no args, return char * as NULL on SUCCESS
 {
     lib = dlopen(lib_file, RTLD_NOW);
     mu_assert(lib != NULL, "Failed to open the library to test.");
@@ -50,15 +50,15 @@ char *test_dlclose()
     return NULL;
 }
 
-char *all_tests() {
+char *all_tests() {//'runner' function to control all tests
     mu_suite_start();
 
-    mu_run_test(test_dlopen);
+    mu_run_test(test_dlopen);//see minunit.h for macros
     mu_run_test(test_functions);
     mu_run_test(test_failures);
     mu_run_test(test_dlclose);
 
-    return NULL;
+    return NULL;//NULL just like a normal test function
 
 }
 

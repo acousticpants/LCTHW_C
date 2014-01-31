@@ -1,4 +1,4 @@
-echo "Running unit tests:"
+echo "Running unit tests:"//runs in unit tests section of makefile
 
 for i in tests/*_tests
 do

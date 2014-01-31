@@ -1,15 +1,16 @@
 //see ex32 page on site to create project folder before compiling this
+//create structs for list and nodes
 #ifndef lcthw_List_h
 #define lcthw_List_h
 
 #include <stdlib.h>
 
 struct ListNode;
-
+//straight list making
 typedef struct ListNode {
     struct ListNode *next;
     struct ListNode *prev;
-    void *value;
+    void *value;//pointer to store anything
 } ListNode;
 
 typedef struct List {
@@ -34,7 +35,7 @@ void List_unshift(List *list, void *value);
 void *List_shift(List *list);
 
 void *List_remove(List *list, ListNode *node);
-
+//FOR_EACH macro generates iteration code to eliminate some human error
 #define LIST_FOREACH(L, S, M, V) ListNode *_node = NULL;\
     ListNode *V = NULL;\
     for(V = _node = L->S; _node != NULL; V = _node _node->M)

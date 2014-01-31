@@ -27,6 +27,7 @@ int Monster_init(void *self)
 }
 
 Object MonsterProto = {
+    //invoking the _(N) proto.N macro in object.h:28
     .init = Monster_init,
     .attack = Monster_attack
 };
@@ -103,7 +104,7 @@ int Map_init(void *self)
     Map *map = self;
     
     //make some rooms for a small map
-    Room *hall = NEW(Room, "The Great Hall");
+    Room *hall = NEW(Room, "The Great Hall");//see object.h:26
     Room *throne = NEW(Room, "The Throne Room");
     Room *arena = NEW(Room, "The Arena...with the Minotaur");
     Room *kitchen = NEW(Room, "Kitchen...you now have The Knife");
@@ -139,8 +140,8 @@ int process_input(Map *game)
     printf("\n> ");
 
     char ch = getchar();
-    getchar(); //eat ENTER
-    int damage = rand() % 4;
+    getchar(); //eat ENTER and inputs, part of stdio.h lib
+    int damage = rand() % 4; //rand generates random int
 
     switch(ch) {
         case -1:
@@ -185,7 +186,7 @@ int process_input(Map *game)
 int main(int argc, char *argv[])
 {
     //simple way to setup the randomness
-    srand(time(NULL));
+    srand(time(NULL));//time() from time.h return system time based on epoch
 
     //make our map to work with
     Map *game = NEW(Map, {"The Hall of the Minotaur.");

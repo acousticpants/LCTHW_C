@@ -37,7 +37,7 @@ int test_check(char *file_name)
     check_mem(block); //should work
 
     input = fopen(file_name, "r");
-    check(input, "Failed to open %s,", file_name);
+    check(input, "Failed to open %s,", file_name);//if input is false, the other arguments take place, i.e prints error msg w/ file name
 
     free(block);
     fclose(input);

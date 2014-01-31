@@ -14,7 +14,7 @@ static int default_compare(void *a, void *b)
 * Wikipedia description.
 */
 
-static uint32_t default_hash(void *a)
+static uint32_t default_hash(void *a)//this is the jenkin's hash
 {
     size_t len = blength((bstring)a);
     char *key = bdata((bstring)a);
@@ -32,10 +32,10 @@ static uint32_t default_hash(void *a)
     hash ^= (hash >> 11);
     hash += (hash << 15);
 
-    return hash;
+    return hash;//total mind fuck no clue what do u even lift bro etc etc
 }
 
-Hashmap *Hashmap_create(Hashmap_compare compare, Hashmap_hash hash)
+Hashmap *Hashmap_create(Hashmap_compare compare, Hashmap_hash hash)//if no args given, uses default fns above
 {
     Hashmap *map = calloc(1, sizeof(Hashmap));
     check_mem(map);
@@ -95,16 +95,16 @@ error:
 }
 
 static inline DArray *Hashmap_find_bucket(Hashmap *map, void *key,
-    int create, uint32_t *hash_out)
-{
-    uint32_t hash = mam->hash(key);
-    int bucket_n = hash % DEFAULT_NUMBER_OF_BUCKETS;
+    int create, uint32_t *hash_out)//finds correct bucket if none creates then creates new bucket
+{//caller fn will include 1 or 0 for int create true or false
+    uint32_t hash = map->hash(key);//get hash for the key
+    int bucket_n = hash % DEFAULT_NUMBER_OF_BUCKETS;//finds bucket will always find a bucket no matter how big
     check(bucket_n >= 0, "Invalid bucket found: %d", bucket_n);
     *hash_out = hash; //store it for the return so caller can use it
 
-    DArray *bucket = DArray_get(map->buckets, bucket_n);
+    DArray *bucket = DArray_get(map->buckets, bucket_n);//gets bucket
 
-    if(!bucket && create) {
+    if(!bucket && create) {//creates bucket if none found
         //new bucket, set it up
         bucket = DArray_create(sizeof(void *), DEFAULT_NUMBER_OF_BUCKETS);
         check_mem(bucket);
@@ -117,16 +117,16 @@ error:
     return NULL;
 }
 
-int Hashmap_set(Hashmap *map, void *key, void *data)
+int Hashmap_set(Hashmap *map, void *key, void *data)//finds a bucket create node add node to bucket
 {
     uint32_t hash = 0;
-    DArray *bucket = Hashmap_find_bucket(map, key, 1, &hash);
+    DArray *bucket = Hashmap_find_bucket(map, key, 1, &hash);//int 1 tells fn to create bucket if none found
     check(bucket, "Error can't create bucket.");
 
     HashmapNode *node = Hashmap_node_create(hash, key, data);
     check_mem(node);
 
-    DArray_push(bucket, node);
+    DArray_push(bucket, node);//push Kreygasm
 
     return 0;
 
@@ -135,7 +135,7 @@ error:
 }
 
 static inline int Hashmap_get_node(Hashmap *map, uint32_t hash, DArray *bucket, void *key)
-{
+{//get key find HashmapNode matching hash and key
     int i = 0;
 
     for(i = 0; i < DArray_end(bucket); i++) {
@@ -168,7 +168,7 @@ error: //fallthrough
 }
 
 int Hashmap_traverse(Hashmap *map, Hashmap_traverse_cb traverse_cb)
-{
+{//walks every bucket if bucket has any values then traverse_cb on each value scans whole hash map for its values
     int i = 0;
     int j = 0;
     int rc = 0;
@@ -188,7 +188,7 @@ int Hashmap_traverse(Hashmap *map, Hashmap_traverse_cb traverse_cb)
 }
 
 void *Hashmap_delete(Hashmap *map, void *key)
-{
+{//finds bucket finds requested node remove node by swapping last node into its place
     uint32_t hash = 0;
     DArray *bucket = Hashmap_find_bucket(map, key, 0, &hash);
     if(!bucket) return NULL;

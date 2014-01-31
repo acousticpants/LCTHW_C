@@ -30,3 +30,5 @@
 int tests_run;
 
 #endif
+
+//uses dbg.h macros. RUN_TESTS() a 'boilerplate' macro
