@@ -8,7 +8,7 @@ double samples[] = {
     6.9755066, 1.0626275, 7.6587523, 4.9382973, 9.5788115
 };
 
-Stats expect = {
+Stats expect = {//for comparison agianst calc values
     .sumsq = 425.1641,
     .sum = 55.84602,
     .min = 0.333,
@@ -18,7 +18,7 @@ Stats expect = {
 double expect_mean = 5.584602;
 double expect_stddev = 3.547868;
 
-#define EQ(X, Y, N) (round((X) * pow(10, N) == round((Y) * pow(10, N))
+#define EQ(X, Y, N) (round((X) * pow(10, N)) == round((Y) * pow(10, N)))//how to tell if two double values are close. Compares x and y by *N^10 and rounding the result to do this.
 
 char *test_operations()
 {
@@ -67,7 +67,7 @@ char *all_tests()
 
     return NULL;
 }
-
+//can use stats to take 'stats of stats' eg compare stats from one server against an array of servers and find outliers
 RUN_TESTS(all_tests);
 
     

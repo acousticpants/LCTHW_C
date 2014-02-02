@@ -11,15 +11,15 @@
 #include <netdb.h>
 #include <unistd.h>
 #include <fcntl.h>
-
+//tagbstring from bstring
 struct tagbstring NL = bsStatic("\n");
 struct tagbstring CRLF = bsStatic("\r\n");
 
-int nonblock(int fd) {
-    int flags = fcntl(fd, F_GETFL, 0);
+int nonblock(int fd) {//allows caller to open or ready device or file 
+    int flags = fcntl(fd, F_GETFL, 0);//fcntl takes (fd, cmd, ...) where cmd are predefined macros in fcntl.h lib FGETFL gets file status and access modes of fd
     check(flags >= 0, "Invalid flags on nonblock.");
 
-    int rc = fcntl(fd, F_SETFL, flags | O_NONBLOCK);
+    int rc = fcntl(fd, F_SETFL, flags | O_NONBLOCK);//F_SETFL uses 3rd arg on fd
     check(rc == 0, "Can't set nonblocking.");
 
     return 0;
@@ -30,9 +30,10 @@ error:
 int client_connect(char *host, char *port)
 {
     int rc = 0;
-    struct addrinfo *addr = NULL;
+    struct addrinfo *addr = NULL;//addrinfo struct from netdb.h defines socket and address information with pointer to next in list
 
-    rc = getaddrinfo(host, port, NULL, &addr);
+    rc = getaddrinfo(host, port, NULL, &addr);//takes host and port returns one or more addrinfo structs
+/*getaddrinfo() allocates and initialises linked list of addrinfo structs, one for each network address matching host and port with restrictions from arg3 returns pointer to start of list in arg4*/
     check(rc == 0, "Failed to lookup %s:%s", host, port);
 
     int sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -53,7 +54,7 @@ error:
 }
 
 int read_some(RingBuffer *buffer, int fd, int is_socket)
-{
+{//as name implies reads from socket AND input
     int rc = 0;
 
     if(RingBuffer_available_data(buffer) == 0) {
@@ -77,7 +78,7 @@ error:
 }
 
 int write_some(RingBuffer *buffer, int fd, int is_socket)
-{
+{//as name implies writes to socket AND output
     int rc = 0;
     bstring data = RingBuffer_get_all(buffer);
 
@@ -122,27 +123,28 @@ int main(int argc, char *argv[])
         readmask = allreads;
         rc = select(socket + 1, &readmask, NULL, NULL, NULL);
         check(rc >= 0, "Select failed.");
-
+/*select from sys/select.h checks status of file descriptors args 2 and 3 hold fd to be read and written respectively
+also has macros FD_SET FD_CLR FD_ZERO FD_ISSET for 2nd 3rd and 4th args*/
         if(FD_ISSET(0, &readmask)) {
             rc = read_some(in_rb, 0, 0);
             check_debug(rc != -1, "Failed to read from stdin.");
-        }
+        }//reads from input
 
         if(FD_ISSET(socket, &readmask)) {
             rc = read_some(sock_rb, socket, 0);
             check_debug(rc != -1, "Failed to read from socket.");
-        }
+        }//reads from socket
 
         while(!RingBuffer_empty(sock_rb)) {
             rc = write_some(sock_rb, 1, 0);
             check_debug(rc != -1, "failed to write to stdout.");
-        }
+        }//writes to output
 
         while(!RingBuffer_empty(in_rb)) {
             rc = write_some(in_rb, socket, 1);
             check_debug(rc != -1, "Failed to write to socket.");
-        }
-    }
+        }//writes to socket
+    }//select handles events from input and from socket 
 
     return 0;
 

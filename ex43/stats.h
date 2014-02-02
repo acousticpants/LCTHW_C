@@ -1,7 +1,7 @@
 #ifndef lcthw_stats_h
 #define lcthw_stats_h
 
-typedef struct Stats {
+typedef struct Stats {//basic calcs
     double sum;
     double sumsq;
     unsigned long n;

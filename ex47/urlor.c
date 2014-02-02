@@ -1,6 +1,6 @@
-#include <lcthw/tstree.h>
+#include <lcthw/tstree.h>//uses tree for fast URL search and route
 #include <lcthw/bstrlib.h>
-
+//urlor is a cmd line tool reads file of routes prompts user to enter them for look up
 TSTree *add_route_data(TSTree *routes, bstring line)
 {
     struct bstrList *data = bsplit(line, ' ');
@@ -10,23 +10,23 @@ TSTree *add_route_data(TSTree *routes, bstring line)
 
     bstrListDestroy(data);
 
-    retrun routes;
+    retrun routes;//sends routes to caller fn load_routes
 
 error:
     return NULL;
 }
 
 TSTree *load_routes(const char *file)
-{
+{//reads URLs from file returns list as routes
     TSTree *routes = NULL;
     bstring line = NULL;
-    FILE *routes_map = NULL;
+    FILE *routes_map = NULL;//FILE is a typedef struct holding file info lets you perform functions on the pointer data
 
     routes_map = fopen(file, "r");
     check(routes_map != NULL, "Failed to open routes: %s", file);
 
     while((line = bgets((bNgetc)fgetc, routes_map, '\n')) != NULL) {
-        check(btrimws(line) == BSTR_OK, "Failed to trim line.");
+        check(btrimws(line) == BSTR_OK, "Failed to trim line.");//takes lines from routes_map feeds it to add_route_data then destroys the line
         routes = add_route_data(routes, line);
         check(routes != NULL, "Failed to add route.");
         bdestroy(line);
@@ -43,19 +43,19 @@ error:
 }
 
 bstring match_url(TSTree *routes, bstring url)
-{
+{//searches through tree to match URL
     bstring route = TSTree_search(routes, bdata(url), blength(url));
 
-    if(route == NULL) {
+    if(route == NULL) {//searches by prefix if main search fails
         printf("No exact match found, trying prefix.\n");
         route = TSTree_search_prefix(routes, bdata(url), blength(url));
     }
 
-    return route;
+    return route;//route used in main
 }
 
 bstring read_line(const char *prompt)
-{
+{//as named
     printf("%s", prompt);
 
     bstring result = bgets((bNgetc)fgetc, stdin, '\n');
@@ -70,27 +70,27 @@ error:
 }
 
 void bdestroy_cb(void *value, void *ignored)
-{
+{//fn for destroy to call to traverse routes to be destroyed
     (void)ignored;
     bdestroy((bstring)value);
 }
 
-void destroy_routes(TSTree *routes)
+void destroy_routes(TSTree *routes)//as named
 {
     TSTree_travers(routes, bdestroy_cb, NULL);
     TSTree_destroy(routes);
 }
 
 int main(int argc, char *argv[]);
-{
+{//takes URL as arg in argv[1]
     bstring url = NULL;
     bstring route = NULL;
-    check(argc == 2, "USAGE: urlor <urlfile>");
+    check(argc == 2, "USAGE: urlor <urlfile>");//confirm only 2 args used: run urlor and the url as 2nd arg
 
     TSTree *routes = load_routes(argv[1]);
     check(routes != NULL, "Your route file has an error.");
 
-    while(1) {
+    while(1) {//will run until found
         url = read_line("URL> ");
         check_debug(url != NULL, "goodbye.");
 
@@ -106,7 +106,7 @@ int main(int argc, char *argv[]);
     }
 
     destroy_routes(routes);
-    return 0;
+    return 0;//when found return 0 prevents while loop from running
 
 error:
     destroy_routes(routes);

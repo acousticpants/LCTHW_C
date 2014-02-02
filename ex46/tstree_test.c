@@ -3,7 +3,7 @@
 #include <string.h>
 #include <assert.h>
 #include <lcthw/bstrlib.h>
-
+//setup all the things
 TSTree *node = NULL;
 char *valueA = "VALUEA";
 char *valueB = "VALUEB";
@@ -17,7 +17,7 @@ struct tagbstring test2 = bsStatic("TEST2");
 struct tagbstring test3 = bsStatic("TSET");
 struct tagbstring test4 = bsStatic("T");
 
-char *test_insert()
+char *test_insert()//test insert of all the things
 {
     node = TSTree_insert(node, bdata(&test1), blength(&test1), valueA);
     mu_assert(node != NULL, "Failed to insert into tst.");
@@ -47,7 +47,7 @@ char *test_search_exact()
     return NULL;
 }
 char *test_search_prefix()
-{
+{//search for the prefix of all the things
     void *res = TSTree_search_prefix(node, bdata(&test1), blength(&test1));
     debug("result: %p, expected: %p", res, valueA);
     mu_assert(res == valueA, "Got wrong valueA by prefix.");
