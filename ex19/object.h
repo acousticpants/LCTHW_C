@@ -23,8 +23,11 @@ void Object_move(void *self, Direction direction);
 int Object_attack(void *self, int damage);
 void *Object_new(size_t size, Object proto, char *description);
 
-#define NEW(T, N) Object_new(sizeof(T), T##Proto, N) //makes a macro, uses code on right when ever macro on left is called
+//makes a macro, uses code on right when ever macro on left is called
+#define NEW(T, N) Object_new(sizeof(T), T##Proto, N)
+
 //'##' operator concatenates T with Proto, so you can call as 'TProto'
-#define _(N) proto.N //syntax trick. let's me write obj->proto.thing ans obj->_(thing)
+//syntax trick. let's me write obj->proto.thing ans obj->_(thing)
+#define _(N) proto.N
 
 #endif

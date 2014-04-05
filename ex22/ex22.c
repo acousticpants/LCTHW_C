@@ -7,7 +7,7 @@ int THE_SIZE = 1000;
 
 static int THE_AGE = 37;//opposite of extern. only available here. another instance of 'THE_AGE' will take a different place in mem and return different results if dec'd in another file
 
-int get_age();//get age and set age can access the static var 'THE_AGE' from outside the file, becuase they aren't static nor is their call of 'THE_AGE' static
+int get_age() //get age and set age can access the static var 'THE_AGE' from outside the file, becuase they aren't static nor is their call of 'THE_AGE' static
 {
     return THE_AGE;
 }

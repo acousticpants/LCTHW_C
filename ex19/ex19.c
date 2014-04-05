@@ -40,7 +40,7 @@ void *Room_move(void *self, Direction direction)
     if(direction == NORTH && room->north) {
         printf("You go north, into:\n");
         next = room->north;
-    } else if{direction == SOUTH && room->south) {
+    } else if(direction == SOUTH && room->south) {
         printf("You go south, into:\n");
         next = room->south;
     } else if(direction == EAST && room->east) {
@@ -130,7 +130,7 @@ int Map_init(void *self)
 }
 
 Object MapProto = {
-    .init = Map-init,
+    .init = Map_init,
     .move = Map_move,
     .attack = Map_attack
 };
@@ -189,7 +189,7 @@ int main(int argc, char *argv[])
     srand(time(NULL));//time() from time.h return system time based on epoch
 
     //make our map to work with
-    Map *game = NEW(Map, {"The Hall of the Minotaur.");
+    Map *game = NEW(Map, "The Hall of the Minotaur.");
 
     printf("You Enter The ");
     game->location->_(describe)(game->location);

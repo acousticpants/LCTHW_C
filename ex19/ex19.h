@@ -3,7 +3,7 @@
 #ifndef _ex19_h
 #define _ex19_h
 
-#include "object.h"
+#include "object.c"
 
 struct Monster {
     Object proto;//Object proto enables us to treat Monster like an Object because of object.h:26 and object.c:52

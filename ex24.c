@@ -7,7 +7,7 @@ typedef enum EyeColour {
     BLUE_EYES, GREEN_EYES, BROWN_EYES, BLACK_EYES, OTHER_EYES
 } EyeColour;
 
-const char * EYE_COLOUR_NAMES[] = {
+const char *EYE_COLOUR_NAMES[] = {
     "Blue", "Green", "Brown", "Black", "Other"
 };
 
@@ -16,7 +16,7 @@ typedef struct Person {
     char first_name[MAX_DATA];
     char last_name[MAX_DATA];
     EyeColour eyes;
-    flout income;
+    float income;
 } Person;
 
 int main(int argc, char *argv[])
@@ -26,11 +26,11 @@ int main(int argc, char *argv[])
     char *in = NULL;
 
     printf("What's your First Name? ");
-    in = fgets(you.first_name, MAX_DATA-1, stdin);//takes str from input, ensures no buffer overflow
-    check(in != NULL, "Failed to read first name,");
+    in = fgets(you.first_name, MAX_DATA-1, stdin);
+    check(in != NULL, "Failed to read first name.");
 
     printf("What's your Last Name? ");
-    in =f fgets(you.last_name, MAX_DATA-1, stdin);
+    in = fgets(you.last_name, MAX_DATA-1, stdin);
     check(in != NULL, "Failed to read last name.");
 
     printf("How old are you? ");
@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
     }
     printf("> ");
 
-    int eyes = -1;
+    int eyes = 0;
     rc = fscanf(stdin, "%d", &eyes);
     check(rc > 0, "You have to enter a number.");
 
@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
     printf("First Name: %s", you.first_name);
     printf("Last Name: %s", you.last_name);
     printf("Age: %d\n", you.age);
-    printf("Eyes: %s\n", [EYE_COLOUR_NAMES[you.eyes]);
+    printf("Eyes: %s\n", EYE_COLOUR_NAMES[you.eyes]);
     printf("Income: %f\n", you.income);
 
     return 0;

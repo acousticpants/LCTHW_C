@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
     log_info("My age is now: %d", get_age());
 
     //test out THE_SIZE extern
-    lob_info("THE_SIZE is: %d", THE_SIZE);
+    log_info("THE_SIZE is: %d", THE_SIZE);
     print_size();
 
     THE_SIZE = 9;

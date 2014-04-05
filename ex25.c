@@ -70,7 +70,7 @@ int read_scan(const char *fmt, ...)
                     *out_char = fgetc(stdin);
                     break;
 
-                case 's';
+                case 's':
                     max_buffer = va_arg(argp, int);
                     out_string = va_arg(argp, char **);
                     rc = read_string(out_string, max_buffer);
@@ -107,7 +107,7 @@ int main(int argc, char *argv[])
     check(rc == 0, "Failed first name.");
 
     printf("What's your initial? ");
-    rc = read_scan("%c\n", &initial);
+    rc = read_scan("%c", &initial);
     check(rc == 0, "Failed initial.");
 
     printf("What's your last name? ");
@@ -119,9 +119,9 @@ int main(int argc, char *argv[])
 
     printf("---- RESULTS ----\n");
     printf("First Name: %s", first_name);
-    printf("Initial: %c/n", initial);
+    printf("Initial: %c", initial);
     printf("Last Name: %s", last_name);
-    printf("Age: %d\n", age);
+    printf("Age: %d", age);
 
     free(first_name);
     free(last_name);

@@ -1,12 +1,14 @@
 TARGET = prog
 LIBS = -lm
 CC = gcc
-CFLAGS = -g -Wall
+CFLAGS = -g -Wall -DNDEBUG
 
 .PHONY: default all clean
 
 default: $(TARGET)
 all: default
+
+ex19: object.o
 
 OBJECTS = $(patsubst %.c, %.o, $(wildcard *.c))
 HEADERS = $(wildcard *.h)
