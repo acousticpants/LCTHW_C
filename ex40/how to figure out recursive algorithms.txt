@@ -1,0 +1,9 @@
+how to make a recursive algorithm
+
+figure out initial variables, how they change and their stopping conditions in each step
+
+write recurs fn calling itself w\ args for each condition and variable
+
+write setup fn for intial conditions and handle edge case then call recursive fn
+
+setup fn returns final result and handle any edge cases recursive fn can't
