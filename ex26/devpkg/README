@@ -1,0 +1,35 @@
+README for devpkg
+options:
+
+'I':COMMAND_INSTALL; url = optarg;
+
+int Command_install(apr_pool_t *p, const char *url, const char *configure_opts,
+        const char *make_opts, const char *install_opts);
+
+'L':COMMAND_LIST; COMMAND_LIST:
+            DB_list();
+                
+'c':config_opts = optarg;
+
+'m':make_opts = optarg;
+
+'i':install_opts = optarg;
+
+'S':request = COMMAND_INIT;
+
+'F':COMMAND_FETCH;url = optarg;
+
+int Command_fetch(apr_pool_t *p, const char *url, int fetch_only);
+
+command_install
+command_fetch
+command_init
+command_build
+
+extern Shell CLEANUP_SH;
+extern Shell GIT_SH;
+extern Shell TAR_SH;
+extern Shell CURL_SH;
+extern Shell CONFIGURE_SH;
+extern Shell MAKE_SH;
+extern Shell INSTALL_SH;
